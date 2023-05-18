@@ -1,43 +1,59 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Page1</h1>
         <div @click="routerJump">Click me to Page2</div>
-        <div>hello, {{ name }}</div>
-        <button @click="changeName">change</button>
+        <button @click="clickEvent">Click me</button>
+        <Function-comp v-if="myData" :text="myData" :count="count"/>
     </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions  } from 'vuex'
+import FunctionComp from '@/components/functionComp'
 export default {
+    components: {
+        FunctionComp
+    },
     data(){
         return {
-            myData: '我的数据'
+            myData: '',
+            count: 0
         }
     },
-    mounted(){
-        window.addEventListener('beforeunload', () => {
-            window.sessionStorage.setItem('name', this.name)
-        })
+    created(){
+        this.init()
     },
-    computed:{
-        ...mapState(['name']),
-        ...mapGetters(['getName']),
+    mounted(){
+        // 监听页面刷新事件
+        // window.addEventListener('beforeunload', () => {
+        //     window.sessionStorage.setItem('name', this.name)
+        // })
+        // hook监听生命周期钩子函数
+        // this.$on('hook:beforeUpdate',() => {
+        //     console.log('更新了')
+        // })
     },
     methods:{
-        ...mapMutations(['setName']),
-        ...mapActions(['setNewName']),
+        init(){
+            // 随时监听，随时取消
+            // const myWatch = this.$watch('count', (nv) => {if(nv===0){console.log('监听到了')}})
+            // this.$once('hook:beforeDestroy', () => {
+            //     console.log('取消监听')
+            //     myWatch()
+            // })
+        },
         routerJump(){
             this.$router.push('/page2')
         },
-        changeName(){
-            this.setName('李四')
-        }
+        clickEvent() {
+            this.myData += '~'
+        },
     },
 }
 </script>
 
-<style>
-
+<style lang="less">
+.container {
+    color: @primaryColor;
+}
 
 </style>

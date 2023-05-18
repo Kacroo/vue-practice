@@ -13,8 +13,8 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
-        setName(state, name){
-            state.name = name
+        setName(state){
+            state.name += '-'
         }
     },
     
