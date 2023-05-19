@@ -6,11 +6,19 @@
 </template>
 
 <script>
+import API from '@/api/index'
 export default {
     data(){
         return {
             
         }
+    },
+    created(){
+        API.getData().then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log('错误：',err)
+        })
     },
     methods:{
         routerJump(){
